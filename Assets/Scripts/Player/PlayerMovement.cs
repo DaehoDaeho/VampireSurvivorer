@@ -39,4 +39,14 @@ public class PlayerMovement : MonoBehaviour
     {
         playerRigidbody.linearVelocity = moveDirection * moveSpeed;
     }
+
+    public bool IsMoving()
+    {
+        return isMoving;
+    }
+
+    public Vector2 GetMoveDirection()
+    {
+        return moveDirection;
+    }
 }

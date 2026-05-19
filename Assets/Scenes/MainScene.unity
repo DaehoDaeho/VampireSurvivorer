@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 355460149}
   - component: {fileID: 355460148}
   - component: {fileID: 355460147}
+  - component: {fileID: 355460150}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -232,6 +233,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   playerRigidbody: {fileID: 355460148}
+--- !u!114 &355460150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 355460145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc6b6c4ea9c54a84ba8c5034b8b6a58a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMovement: {fileID: 355460149}
+  spriteRenderer: {fileID: 843210334}
+  animator: {fileID: 843210335}
+  moveParameter: Move
 --- !u!1 &800386837
 GameObject:
   m_ObjectHideFlags: 0
