@@ -8,6 +8,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private float invincibilityDuration = 1.0f; // 무적 시간
     [SerializeField] private SpriteRenderer playerSpriteRenderer; // 깜빡임 대상
     [SerializeField] private PlayerHealthUI playerHealthUI; // 체력 UI 담당
+    [SerializeField] private bool invincible = false;
 
     private int currentHealth = 0; // 현재 체력
     private bool isInvincible = false; // 무적 상태 여부
@@ -27,6 +28,11 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int damageAmount)
     {
+        if(invincible == true)
+        {
+            return;
+        }
+
         if (damageAmount <= 0)
         {
             return;
