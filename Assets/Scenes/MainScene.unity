@@ -370,6 +370,7 @@ GameObject:
   - component: {fileID: 355460147}
   - component: {fileID: 355460150}
   - component: {fileID: 355460151}
+  - component: {fileID: 355460152}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -504,6 +505,23 @@ MonoBehaviour:
   playerSpriteRenderer: {fileID: 843210334}
   playerHealthUI: {fileID: 200019059}
   invincible: 1
+--- !u!114 &355460152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 355460145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a124188dcdbf3d4196cbcfc5a222adf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackRange: 5
+  enemyLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  attackInterval: 1
 --- !u!1 &740261014
 GameObject:
   m_ObjectHideFlags: 0
