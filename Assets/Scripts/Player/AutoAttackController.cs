@@ -6,6 +6,10 @@ using UnityEngine;
 /// </summary>
 public class AutoAttackController : MonoBehaviour
 {
+    [SerializeField] private Projectile projectilePrefab;
+    [SerializeField] private Transform firePoint;
+    [SerializeField] private bool canFireProjectile = true;
+
     [SerializeField] private float attackRange = 5.0f;
     [SerializeField] private LayerMask enemyLayerMask;
 
@@ -43,7 +47,35 @@ public class AutoAttackController : MonoBehaviour
 
         lastAttackDirection = (targetPosition - originPosition).normalized;
 
-        Debug.DrawRay(transform.position, (targetPosition - originPosition), Color.green, 1.0f);
+        //Debug.DrawRay(transform.position, (targetPosition - originPosition), Color.green, 1.0f);
+
+        FireProjectile(lastAttackDirection);
+    }
+
+    void FireProjectile(Vector2 fireDirection)
+    {
+        if(canFireProjectile == false)
+        {
+            return;
+        }
+
+        if(projectilePrefab == null)
+        {
+            return;
+        }
+
+        if(firePoint == null)
+        {
+            return;
+        }
+
+        Projectile projectile = Instantiate(projectilePrefab, firePoint.position,
+            Quaternion.identity);
+
+        if(projectile != null)
+        {
+            projectile.Initialize(fireDirection);
+        }
     }
 
     Collider2D FindNearestEnemy()
