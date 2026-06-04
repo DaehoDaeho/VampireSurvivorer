@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 8495960820601861822}
   - component: {fileID: 7167256847588697517}
   - component: {fileID: 5050679506823440890}
+  - component: {fileID: -8150547243834271870}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
@@ -243,3 +244,16 @@ MonoBehaviour:
   contactDamage: 1
   damageInterval: 0.6
   targetTag: Player
+--- !u!114 &-8150547243834271870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6390879288962699896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0870617b603bbf49bebbecc752615d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 3
