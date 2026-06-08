@@ -3,8 +3,14 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
     [SerializeField] private int maxHealth = 3;
+    [SerializeField] private bool destroyOnDeath = true;
+    [SerializeField] private float destroyDelay = 0.2f;
+    [SerializeField] private Collider2D bodyCollider;
+    [SerializeField] private Rigidbody2D bodyRigidbody;
+    [SerializeField] private EnemyMovement enemyMovement;
 
     private int currentHealth = 0;
+    private bool isDead = false;
 
     private void Awake()
     {
@@ -13,6 +19,11 @@ public class EnemyHealth : MonoBehaviour
 
     public void TakeDamage(int damageAmount)
     {
+        if(isDead == true)
+        {
+            return;
+        }
+
         if(damageAmount <= 0)
         {
             return;
@@ -23,5 +34,49 @@ public class EnemyHealth : MonoBehaviour
         currentHealth = Mathf.Max(0, currentHealth);
 
         Debug.Log(gameObject.name + " HP: " + currentHealth);
+
+        if(currentHealth == 0)
+        {
+            Die();
+        }    
+    }
+
+    void Die()
+    {
+        if(isDead == true)
+        {
+            return;
+        }
+
+        isDead = true;
+
+        DisableComponentsAfterDeath();
+
+        if(destroyOnDeath == true)
+        {
+            Destroy(gameObject, destroyDelay);
+        }
+        else
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
+    void DisableComponentsAfterDeath()
+    {
+        if(enemyMovement != null)
+        {
+            enemyMovement.enabled = false;
+        }
+
+        if(bodyCollider != null)
+        {
+            bodyCollider.enabled = false;
+        }
+
+        if(bodyRigidbody != null)
+        {
+            bodyRigidbody.linearVelocity = Vector2.zero;
+        }
     }
 }
