@@ -8,68 +8,76 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private Transform playerTransform;
     [SerializeField] private Transform enemyParent;
-    [SerializeField] private float spawnInterval = 1.5f;
-
+    
     [SerializeField] private float spawnDistance = 8.0f;
 
-    [SerializeField] private int maxEnemyCount = 20;
+    [SerializeField] private float baseSpawnInterval = 2.0f;
+    [SerializeField] private float minSpawnInterval = 0.45f;
+    [SerializeField] private float diffisultyDuration = 180.0f;
 
+    [SerializeField] private int baseSpawnCount = 1;
+    [SerializeField] private int maxSpawnCount = 6;
+
+    [SerializeField] private float spawnCountIncreaseInterval = 30.0f;
+
+    private float elapsedTime = 0.0f;
     private float spawnTimer = 0.0f;
-    
+    [SerializeField] private float currentSpawnInterval = 2.0f;
+    [SerializeField] private int currentSpawnCount = 1;
+    [SerializeField] private int currentWaveNumber = 0;
+
     // Update is called once per frame
     void Update()
     {
-        if(enemyPrefab == null || playerTransform == null)
-        {
-            return;
-        }
+        elapsedTime += Time.deltaTime;
 
-        //======================시간 누적======================
+        UpdateDifficultyByTime();
+        currentWaveNumber = GetCurrentWaveNumber();
+
         spawnTimer += Time.deltaTime;
-        if(spawnTimer >= spawnInterval)
+        if(spawnTimer >= currentSpawnInterval)
         {
             spawnTimer = 0.0f;
-            // 적 스폰 처리.
-            TrySpawnEnemy();
+            SpawnEnemyGroup(currentSpawnCount);
         }
-        //====================================================
-
-        //======================시간 차감======================
-        //spawnTimer -= Time.deltaTime;
-        //if (spawnTimer <= 0.0f)
-        //{
-        //    spawnTimer = spawnInterval;
-        //    TrySpawnEnemy();
-        //}
-        //====================================================
     }
 
-    void TrySpawnEnemy()
+    void UpdateDifficultyByTime()
     {
-        if(enemyParent.childCount >= maxEnemyCount)
-        {
-            return;
-        }
+        // Mathf.Clamp01 : 0~1 사이의 범위를 벗어나지 않도록 보정해 주는 함수.
+        float difficultyRatio = Mathf.Clamp01(elapsedTime / diffisultyDuration);
 
-        // 스폰 위치 계산.
-        Vector3 spawnPosition = GetSpawnPositionAroundPlayer();
+        // Mathf.Lerp : 시작 값에서 목표 값까지 부드럽게 변화시켜주는 함수.
+        currentSpawnInterval = Mathf.Lerp(baseSpawnInterval, minSpawnInterval, difficultyRatio);
+
+        // Mathf.FloorToInt : 내림 처리를 한 결과를 int 형 값으로 반환하는 함수.
+        int addedCount = Mathf.FloorToInt(elapsedTime / spawnCountIncreaseInterval);
+
+        // Mathf.Clamp : 첫번째 인자 값이 두번째 인자와 세번째 인자 사이 범위를 벗어나지 않도록 보정시켜주는 함수.
+        currentSpawnCount = Mathf.Clamp(baseSpawnCount + addedCount, baseSpawnCount, maxSpawnCount);
+    }
+
+    void SpawnEnemyGroup(int spawnCount)
+    {
+        for(int i=0; i<spawnCount; ++i)
+        {
+            SpawnOneEnemy();
+        }
+    }
+
+    void SpawnOneEnemy()
+    {
+        Vector2 randomDirection = Random.insideUnitCircle.normalized;
+        Vector3 spawnPosition = playerTransform.position + (Vector3)(randomDirection * spawnDistance);
 
         Instantiate(enemyPrefab, spawnPosition, Quaternion.identity, enemyParent);
     }
 
-    Vector3 GetSpawnPositionAroundPlayer()
+    int GetCurrentWaveNumber()
     {
-        Vector2 randomDirection = Random.insideUnitCircle.normalized;
-        if(randomDirection == Vector2.zero)
-        {
-            randomDirection = Vector2.right;
-        }
+        int waveNumber = Mathf.FloorToInt(elapsedTime / spawnCountIncreaseInterval) + 1;
 
-        Vector3 spawnOffset = new Vector3(randomDirection.x, randomDirection.y, 0.0f);
-
-        spawnOffset *= spawnDistance;
-
-        return playerTransform.position + spawnOffset;
+        return waveNumber;
     }
 
     private void OnDrawGizmos()
