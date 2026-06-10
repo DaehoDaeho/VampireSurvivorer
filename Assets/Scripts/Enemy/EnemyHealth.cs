@@ -8,6 +8,7 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private Collider2D bodyCollider;
     [SerializeField] private Rigidbody2D bodyRigidbody;
     [SerializeField] private EnemyMovement enemyMovement;
+    [SerializeField] private ExperienceDropper experienceDropper;
 
     private int currentHealth = 0;
     private bool isDead = false;
@@ -54,11 +55,25 @@ public class EnemyHealth : MonoBehaviour
 
         if(destroyOnDeath == true)
         {
+            Invoke("DropExperience", destroyDelay);
             Destroy(gameObject, destroyDelay);
         }
         else
         {
             gameObject.SetActive(false);
+        }
+    }
+
+    //void OnDestroy()
+    //{
+    //    DropExperience();
+    //}
+
+    void DropExperience()
+    {
+        if(experienceDropper != null)
+        {
+            experienceDropper.DropExperience();
         }
     }
 

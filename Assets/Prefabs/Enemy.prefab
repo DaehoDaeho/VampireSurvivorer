@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 7167256847588697517}
   - component: {fileID: 5050679506823440890}
   - component: {fileID: -8150547243834271870}
+  - component: {fileID: 3770212897670193335}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
@@ -262,3 +263,18 @@ MonoBehaviour:
   bodyCollider: {fileID: 8495960820601861822}
   bodyRigidbody: {fileID: 506281123939303285}
   enemyMovement: {fileID: 7167256847588697517}
+  experienceDropper: {fileID: 3770212897670193335}
+--- !u!114 &3770212897670193335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6390879288962699896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3b0fc7dac0d90c4f84ae2f8c16cebb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  experienceGemPrefab: {fileID: 3428066239712682411, guid: 7f53c5b7c3ca2bf4ab5dd35da35911f6, type: 3}
+  dropRadius: 0.25

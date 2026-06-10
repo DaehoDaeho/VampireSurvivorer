@@ -371,6 +371,7 @@ GameObject:
   - component: {fileID: 355460150}
   - component: {fileID: 355460151}
   - component: {fileID: 355460152}
+  - component: {fileID: 355460153}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -526,6 +527,19 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   attackInterval: 1
+--- !u!114 &355460153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 355460145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f8f0b88041324647a957f69c9daa250, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentExperience: 0
 --- !u!1 &740261014
 GameObject:
   m_ObjectHideFlags: 0
@@ -1087,9 +1101,16 @@ MonoBehaviour:
   enemyPrefab: {fileID: 6390879288962699896, guid: 6e3f9290392c6ff40aa992f7dbff5721, type: 3}
   playerTransform: {fileID: 355460146}
   enemyParent: {fileID: 1350649373}
-  spawnInterval: 1.5
   spawnDistance: 8
-  maxEnemyCount: 2000
+  baseSpawnInterval: 2
+  minSpawnInterval: 0.45
+  diffisultyDuration: 180
+  baseSpawnCount: 1
+  maxSpawnCount: 6
+  spawnCountIncreaseInterval: 30
+  currentSpawnInterval: 2
+  currentSpawnCount: 1
+  currentWaveNumber: 0
 --- !u!4 &1350649373
 Transform:
   m_ObjectHideFlags: 0
