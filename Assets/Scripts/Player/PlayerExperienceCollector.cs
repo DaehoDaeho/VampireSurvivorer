@@ -15,6 +15,8 @@ public class PlayerExperienceCollector : MonoBehaviour
     // 현재 레벨에서 다음 레벨까지 필요한 경험치.
     [SerializeField] private int experienceToNextLevel = 0;
 
+    [SerializeField] private LevelUpSelectionUI levelUpSelectionUI;
+
     public int CurrentExperience
     {
         get { return currentExperience; }
@@ -69,6 +71,17 @@ public class PlayerExperienceCollector : MonoBehaviour
         currentLevel++;
 
         experienceToNextLevel += experienceIncreasePerLevel;
+
+        // 레벨업 선택 UI 열기.
+        OpenLevelUpSelection();
+    }
+
+    void OpenLevelUpSelection()
+    {
+        if(levelUpSelectionUI != null)
+        {
+            levelUpSelectionUI.OpenSelection(currentLevel);
+        }
     }
 
     public float GetExperienceProgress01()

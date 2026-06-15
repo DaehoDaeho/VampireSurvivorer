@@ -138,7 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19949f843990231498a2e6f740b2fc9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  experienceAmount: 50
+  experienceAmount: 1
   playerTag: Player
 --- !u!50 &538410197491379992
 Rigidbody2D:
