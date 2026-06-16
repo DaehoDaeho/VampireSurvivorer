@@ -30,6 +30,11 @@ public class Projectile : MonoBehaviour
         RotateToMoveDirection();
     }
 
+    public void SetDamage(int newDamage)
+    {
+        damage = newDamage;
+    }
+
     void RotateToMoveDirection()
     {
         // Mathf.Atan2의 반환값은 각도가 아니라 라디안(Radian)값이다.

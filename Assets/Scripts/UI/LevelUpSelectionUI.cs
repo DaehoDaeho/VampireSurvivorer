@@ -10,7 +10,8 @@ public class LevelUpSelectionUI : MonoBehaviour
     [SerializeField] private GameObject rootPanel;
     [SerializeField] private Button[] optionButton;
     [SerializeField] private TMP_Text[] optionText;
-    [SerializeField] private string[] optionNames = { "Attack Speed Up", "Projectile Speed Up", "Defense Up" };
+    [SerializeField] private string[] optionNames = { "Damage Up", "Cooldown Down", "Balanced Attack Up" };
+    [SerializeField] private WeaponUpgradeController weaponUpgradeController;
 
     private bool isOpen = false;
 
@@ -23,9 +24,10 @@ public class LevelUpSelectionUI : MonoBehaviour
 
     void OnOptionSelected(int optionIndex)
     {
-        string selectedName = optionNames[optionIndex];
-
-        Debug.Log("레벨업 선택 : " + selectedName);
+        if(weaponUpgradeController != null)
+        {
+            weaponUpgradeController.ApplyUpgrade(optionIndex);
+        }
 
         CloseSelection();
     }

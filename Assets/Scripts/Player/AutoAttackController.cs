@@ -15,6 +15,13 @@ public class AutoAttackController : MonoBehaviour
 
     [SerializeField] private float attackInterval = 1.0f;
 
+    [SerializeField] private int projectileDamage = 1;
+    [SerializeField] private int damageIncreaseAmount = 1;
+    [SerializeField] private int maxProjectileDamage = 99;
+
+    [SerializeField] private float minAttackInterval = 0.15f;
+    [SerializeField] private float cooldownMultiplier = 0.9f;
+
     private float attackTimer = 0.0f;
     private Vector2 lastAttackDirection = Vector2.right;
     private Collider2D currentTargetCollider;
@@ -74,8 +81,27 @@ public class AutoAttackController : MonoBehaviour
 
         if(projectile != null)
         {
+            projectile.SetDamage(projectileDamage);
             projectile.Initialize(fireDirection);
         }
+    }
+
+    public void ApplyDamageUpgrade()
+    {
+        int nextDamage = projectileDamage + damageIncreaseAmount;
+        projectileDamage = Mathf.Min(nextDamage, maxProjectileDamage);
+    }
+
+    public void ApplyCooldownUpgrade()
+    {
+        float nextInterval = attackInterval * cooldownMultiplier;
+        attackInterval = Mathf.Max(nextInterval, minAttackInterval);
+    }
+
+    public void ApplyBalancedAttackUpgrade()
+    {
+        ApplyDamageUpgrade();
+        ApplyCooldownUpgrade();
     }
 
     Collider2D FindNearestEnemy()
