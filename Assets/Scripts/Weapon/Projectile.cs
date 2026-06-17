@@ -19,6 +19,8 @@ public class Projectile : MonoBehaviour
 
     private bool isInitialized = false;
 
+    private float currentMoveSpeed = 0.0f;
+
     public void Initialize(Vector2 direction)
     {
         moveDirection = direction.normalized;
@@ -33,6 +35,11 @@ public class Projectile : MonoBehaviour
     public void SetDamage(int newDamage)
     {
         damage = newDamage;
+    }
+
+    public void SetSpeedMultiplier(float speedMultiplier)
+    {
+        currentMoveSpeed = moveSpeed * speedMultiplier;
     }
 
     void RotateToMoveDirection()
@@ -54,7 +61,7 @@ public class Projectile : MonoBehaviour
             return;
         }
 
-        Vector3 moveAmount = moveDirection * moveSpeed * Time.deltaTime;
+        Vector3 moveAmount = moveDirection * currentMoveSpeed * Time.deltaTime;
         transform.position += moveAmount;
 
         lifeTimer += Time.deltaTime;

@@ -11,15 +11,18 @@ public class WeaponUpgradeController : MonoBehaviour
     {
         if(optionIndex == 0)
         {
-            autoAttackController.ApplyDamageUpgrade();
+            //autoAttackController.ApplyDamageUpgrade();
+            autoAttackController.ApplyProjectileCountUpgrade();
         }
         else if(optionIndex == 1)
         {
-            autoAttackController.ApplyCooldownUpgrade();
+            //autoAttackController.ApplyCooldownUpgrade();
+            autoAttackController.ApplyProjectileSpeedUpgrade();
         }
         else if(optionIndex == 2)
         {
-            autoAttackController.ApplyBalancedAttackUpgrade();
+            //autoAttackController.ApplyBalancedAttackUpgrade();
+            autoAttackController.ApplyProjectilePatternUpgrade();
         }
     }
 }

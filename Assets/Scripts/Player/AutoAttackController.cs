@@ -22,6 +22,15 @@ public class AutoAttackController : MonoBehaviour
     [SerializeField] private float minAttackInterval = 0.15f;
     [SerializeField] private float cooldownMultiplier = 0.9f;
 
+    [SerializeField] private int projectileCount = 1;
+    [SerializeField] private int projectileCountIncreaseAmount = 1;
+    [SerializeField] private int maxProjectileCount = 5;
+    [SerializeField] private float projectileSpreadAngle = 12.0f;
+
+    [SerializeField] private float projectileSpeedMultiplier = 1.0f;
+    [SerializeField] private float speedMultiplierIncreaseAmount = 0.15f;
+    [SerializeField] private float maxProjectileSpeedMultiplier = 2.5f;
+
     private float attackTimer = 0.0f;
     private Vector2 lastAttackDirection = Vector2.right;
     private Collider2D currentTargetCollider;
@@ -76,12 +85,52 @@ public class AutoAttackController : MonoBehaviour
             return;
         }
 
-        Projectile projectile = Instantiate(projectilePrefab, firePoint.position,
+        Vector2 centerDirection = fireDirection.normalized;
+
+        if(projectileCount == 1)
+        {
+            SpawnProjectile(centerDirection);
+        }
+        else
+        {
+            // 여러 발을 중심 방향 기준으로 좌우 대칭 배치를 하기 위한 시작 각도를 계산.
+            float startAngle = -projectileSpreadAngle * (projectileCount - 1) * 0.5f;
+
+            for(int i=0; i<projectileCount; ++i)
+            {
+                // 투사체가 중심 방향에서 얼마나 회전할지 계산.
+                float angleOffset = startAngle + (projectileSpreadAngle * i);
+
+                // 중심 방향을 angleOffset만큼 회전시켜서 실제 방향을 만든다.
+                Vector2 rotatedDirection = RotateDirection(centerDirection, angleOffset);
+
+                SpawnProjectile(rotatedDirection);
+            }
+        }
+    }
+
+    Vector2 RotateDirection(Vector2 direction, float angledegrees)
+    {
+        // Quaternion.Euler : 오브젝트의 회전 각도 값을 지정하는 함수.
+        Quaternion rotation = Quaternion.Euler(0.0f, 0.0f, angledegrees);
+
+        // Quaternion을 방향 벡터에 곱해서 회전된 방향을 계산.
+        Vector2 rotatedDirection = rotation * direction;
+
+        return rotatedDirection.normalized;
+    }
+
+    void SpawnProjectile(Vector2 fireDirection)
+    {
+        Vector3 spawnPosition = firePoint.position + (Vector3)fireDirection.normalized;
+
+        Projectile projectile = Instantiate(projectilePrefab, spawnPosition,
             Quaternion.identity);
 
-        if(projectile != null)
+        if (projectile != null)
         {
             projectile.SetDamage(projectileDamage);
+            projectile.SetSpeedMultiplier(projectileSpeedMultiplier);
             projectile.Initialize(fireDirection);
         }
     }
@@ -102,6 +151,24 @@ public class AutoAttackController : MonoBehaviour
     {
         ApplyDamageUpgrade();
         ApplyCooldownUpgrade();
+    }
+
+    public void ApplyProjectileCountUpgrade()
+    {
+        int nextCount = projectileCount + projectileCountIncreaseAmount;
+        projectileCount = Mathf.Min(nextCount, maxProjectileCount);
+    }
+
+    public void ApplyProjectileSpeedUpgrade()
+    {
+        float nextMultiplier = projectileSpeedMultiplier + speedMultiplierIncreaseAmount;
+        projectileSpeedMultiplier = Mathf.Min(nextMultiplier, maxProjectileSpeedMultiplier);
+    }
+
+    public void ApplyProjectilePatternUpgrade()
+    {
+        ApplyProjectileCountUpgrade();
+        ApplyProjectileSpeedUpgrade();
     }
 
     Collider2D FindNearestEnemy()
