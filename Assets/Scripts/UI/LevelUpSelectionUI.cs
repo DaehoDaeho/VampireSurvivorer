@@ -10,7 +10,8 @@ public class LevelUpSelectionUI : MonoBehaviour
     [SerializeField] private GameObject rootPanel;
     [SerializeField] private Button[] optionButton;
     [SerializeField] private TMP_Text[] optionText;
-    [SerializeField] private string[] optionNames = { "Damage Up", "Cooldown Down", "Balanced Attack Up" };
+    
+    [SerializeField] private WeaponUpgradeData[] upgradeOptions;
     [SerializeField] private WeaponUpgradeController weaponUpgradeController;
 
     private bool isOpen = false;
@@ -19,25 +20,9 @@ public class LevelUpSelectionUI : MonoBehaviour
     {
         isOpen = false;
 
+        Time.timeScale = 1.0f;
+
         rootPanel.SetActive(false);
-    }
-
-    void OnOptionSelected(int optionIndex)
-    {
-        if(weaponUpgradeController != null)
-        {
-            weaponUpgradeController.ApplyUpgrade(optionIndex);
-        }
-
-        CloseSelection();
-    }
-
-    void RefreshOptionTexts(int level)
-    {
-        for(int i=0; i<optionText.Length; ++i)
-        {
-            optionText[i].text = optionNames[i] + " / Lv." + level;
-        }
     }
 
     public void OpenSelection(int level)
@@ -51,7 +36,9 @@ public class LevelUpSelectionUI : MonoBehaviour
 
         rootPanel.SetActive(true);
 
-        RefreshOptionTexts(level);
+        RefreshOptionButtons();
+
+        Time.timeScale = 0.0f;
     }
 
     void ConnectButtonEvent()
@@ -60,8 +47,34 @@ public class LevelUpSelectionUI : MonoBehaviour
         {
             int capturedIndex = i;
             optionButton[i].onClick.RemoveAllListeners();
-            optionButton[i].onClick.AddListener(() => OnOptionSelected(capturedIndex));
+            optionButton[i].onClick.AddListener(() => SelectOption(capturedIndex));
         }
+    }
+
+    void RefreshOptionButtons()
+    {
+        for(int i=0; i<optionButton.Length; ++i)
+        {
+            bool hasData = upgradeOptions != null && i < upgradeOptions.Length && upgradeOptions[i] != null;
+
+            optionButton[i].gameObject.SetActive(hasData);
+
+            if(hasData == false)
+            {
+                continue;
+            }
+
+            optionText[i].text = upgradeOptions[i].optionName;
+        }
+    }
+
+    public void SelectOption(int optionIndex)
+    {
+        WeaponUpgradeData selectedUpgrade = upgradeOptions[optionIndex];
+
+        weaponUpgradeController.ApplyUpgrade(selectedUpgrade);
+
+        CloseSelection();
     }
 
     private void Awake()

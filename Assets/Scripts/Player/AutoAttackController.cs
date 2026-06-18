@@ -16,19 +16,19 @@ public class AutoAttackController : MonoBehaviour
     [SerializeField] private float attackInterval = 1.0f;
 
     [SerializeField] private int projectileDamage = 1;
-    [SerializeField] private int damageIncreaseAmount = 1;
+    //[SerializeField] private int damageIncreaseAmount = 1;
     [SerializeField] private int maxProjectileDamage = 99;
 
     [SerializeField] private float minAttackInterval = 0.15f;
-    [SerializeField] private float cooldownMultiplier = 0.9f;
+    //[SerializeField] private float cooldownMultiplier = 0.9f;
 
     [SerializeField] private int projectileCount = 1;
-    [SerializeField] private int projectileCountIncreaseAmount = 1;
+    //[SerializeField] private int projectileCountIncreaseAmount = 1;
     [SerializeField] private int maxProjectileCount = 5;
     [SerializeField] private float projectileSpreadAngle = 12.0f;
 
     [SerializeField] private float projectileSpeedMultiplier = 1.0f;
-    [SerializeField] private float speedMultiplierIncreaseAmount = 0.15f;
+    //[SerializeField] private float speedMultiplierIncreaseAmount = 0.15f;
     [SerializeField] private float maxProjectileSpeedMultiplier = 2.5f;
 
     private float attackTimer = 0.0f;
@@ -135,40 +135,39 @@ public class AutoAttackController : MonoBehaviour
         }
     }
 
-    public void ApplyDamageUpgrade()
+    public void ApplyDamageUpgrade(int damageIncrease)
     {
-        int nextDamage = projectileDamage + damageIncreaseAmount;
-        projectileDamage = Mathf.Min(nextDamage, maxProjectileDamage);
+        projectileDamage += damageIncrease;
     }
 
-    public void ApplyCooldownUpgrade()
+    public void ApplyCooldownUpgrade(float cooldownDecrease)
     {
-        float nextInterval = attackInterval * cooldownMultiplier;
+        float nextInterval = attackInterval - cooldownDecrease;
         attackInterval = Mathf.Max(nextInterval, minAttackInterval);
     }
 
     public void ApplyBalancedAttackUpgrade()
     {
-        ApplyDamageUpgrade();
-        ApplyCooldownUpgrade();
+        //ApplyDamageUpgrade();
+        //ApplyCooldownUpgrade();
     }
 
-    public void ApplyProjectileCountUpgrade()
+    public void ApplyProjectileCountUpgrade(int countIncrease)
     {
-        int nextCount = projectileCount + projectileCountIncreaseAmount;
+        int nextCount = projectileCount + countIncrease;
         projectileCount = Mathf.Min(nextCount, maxProjectileCount);
     }
 
-    public void ApplyProjectileSpeedUpgrade()
+    public void ApplyProjectileSpeedUpgrade(float speedIncrease)
     {
-        float nextMultiplier = projectileSpeedMultiplier + speedMultiplierIncreaseAmount;
+        float nextMultiplier = projectileSpeedMultiplier + speedIncrease;
         projectileSpeedMultiplier = Mathf.Min(nextMultiplier, maxProjectileSpeedMultiplier);
     }
 
-    public void ApplyProjectilePatternUpgrade()
+    public void ApplyProjectilePatternUpgrade(int countIncrease, float speedIncrease)
     {
-        ApplyProjectileCountUpgrade();
-        ApplyProjectileSpeedUpgrade();
+        ApplyProjectileCountUpgrade(countIncrease);
+        ApplyProjectileSpeedUpgrade(speedIncrease);
     }
 
     Collider2D FindNearestEnemy()
