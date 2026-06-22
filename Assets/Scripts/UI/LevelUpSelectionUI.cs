@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections.Generic;
 
 /// <summary>
 /// 레벨업 시 표시되는 선택 UI를 관리하는 역할.
@@ -13,6 +14,8 @@ public class LevelUpSelectionUI : MonoBehaviour
     
     [SerializeField] private WeaponUpgradeData[] upgradeOptions;
     [SerializeField] private WeaponUpgradeController weaponUpgradeController;
+
+    private readonly List<WeaponUpgradeData> currentUpgradeOptions = new List<WeaponUpgradeData>();
 
     private bool isOpen = false;
 
@@ -36,9 +39,32 @@ public class LevelUpSelectionUI : MonoBehaviour
 
         rootPanel.SetActive(true);
 
+        PickupRandomOptions();
         RefreshOptionButtons();
 
         Time.timeScale = 0.0f;
+    }
+
+    void PickupRandomOptions()
+    {
+        currentUpgradeOptions.Clear();
+
+        List<WeaponUpgradeData> candidateList = new List<WeaponUpgradeData>();
+
+        for(int i=0; i<upgradeOptions.Length; ++i)
+        {
+            candidateList.Add(upgradeOptions[i]);
+        }
+
+        int displayCount = optionButton.Length;
+
+        while(currentUpgradeOptions.Count < displayCount && candidateList.Count > 0)
+        {
+            int randomIndex = Random.Range(0, candidateList.Count);
+            WeaponUpgradeData selectedData = candidateList[randomIndex];
+            currentUpgradeOptions.Add(selectedData);
+            candidateList.RemoveAt(randomIndex);
+        }
     }
 
     void ConnectButtonEvent()
@@ -55,8 +81,7 @@ public class LevelUpSelectionUI : MonoBehaviour
     {
         for(int i=0; i<optionButton.Length; ++i)
         {
-            bool hasData = upgradeOptions != null && i < upgradeOptions.Length && upgradeOptions[i] != null;
-
+            bool hasData = i < currentUpgradeOptions.Count;
             optionButton[i].gameObject.SetActive(hasData);
 
             if(hasData == false)
@@ -64,13 +89,13 @@ public class LevelUpSelectionUI : MonoBehaviour
                 continue;
             }
 
-            optionText[i].text = upgradeOptions[i].optionName;
+            optionText[i].text = currentUpgradeOptions[i].optionName;
         }
     }
 
     public void SelectOption(int optionIndex)
     {
-        WeaponUpgradeData selectedUpgrade = upgradeOptions[optionIndex];
+        WeaponUpgradeData selectedUpgrade = currentUpgradeOptions[optionIndex];
 
         weaponUpgradeController.ApplyUpgrade(selectedUpgrade);
 
