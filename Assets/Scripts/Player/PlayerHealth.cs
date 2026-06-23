@@ -14,6 +14,16 @@ public class PlayerHealth : MonoBehaviour
     private bool isInvincible = false; // 무적 상태 여부
     private bool isDead = false; // 사망 여부
 
+    public int CurrentHealth
+    {
+        get { return currentHealth; }
+    }
+
+    public int MaxHealth
+    {
+        get { return maxHealth; }
+    }
+
     private void Awake()
     {
         currentHealth = maxHealth;

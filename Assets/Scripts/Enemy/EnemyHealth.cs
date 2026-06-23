@@ -51,6 +51,11 @@ public class EnemyHealth : MonoBehaviour
 
         isDead = true;
 
+        if(KillCountTracker.Instance != null)
+        {
+            KillCountTracker.Instance.AddKillCount();
+        }
+
         DisableComponentsAfterDeath();
 
         if(destroyOnDeath == true)

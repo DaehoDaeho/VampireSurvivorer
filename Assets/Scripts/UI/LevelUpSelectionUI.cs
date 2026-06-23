@@ -11,8 +11,9 @@ public class LevelUpSelectionUI : MonoBehaviour
     [SerializeField] private GameObject rootPanel;
     [SerializeField] private Button[] optionButton;
     [SerializeField] private TMP_Text[] optionText;
-    
-    [SerializeField] private WeaponUpgradeData[] upgradeOptions;
+
+    [SerializeField] private UpgradeData upgrades;
+    [SerializeField] private List<WeaponUpgradeData> upgradeOptions;
     [SerializeField] private WeaponUpgradeController weaponUpgradeController;
 
     private readonly List<WeaponUpgradeData> currentUpgradeOptions = new List<WeaponUpgradeData>();
@@ -51,7 +52,7 @@ public class LevelUpSelectionUI : MonoBehaviour
 
         List<WeaponUpgradeData> candidateList = new List<WeaponUpgradeData>();
 
-        for(int i=0; i<upgradeOptions.Length; ++i)
+        for(int i=0; i<upgradeOptions.Count; ++i)
         {
             candidateList.Add(upgradeOptions[i]);
         }
@@ -104,6 +105,8 @@ public class LevelUpSelectionUI : MonoBehaviour
 
     private void Awake()
     {
+        upgradeOptions = upgrades.GetUpgradeOptionsClone();
+
         CloseSelection();
         ConnectButtonEvent();
     }

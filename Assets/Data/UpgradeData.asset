@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e01744bdfea92340bd74b8c0a2a6653, type: 3}
+  m_Name: UpgradeData
+  m_EditorClassIdentifier: 
+  upgradeOptions:
+  - optionName: Damage Up
+    description: 
+    upgradeType: 0
+    intValue: 5
+    floatValue: 0
+  - optionName: Dooldown Down
+    description: 
+    upgradeType: 1
+    intValue: 0
+    floatValue: 0.05
+  - optionName: Count Up
+    description: 
+    upgradeType: 2
+    intValue: 1
+    floatValue: 0
+  - optionName: Speed Up
+    description: 
+    upgradeType: 3
+    intValue: 0
+    floatValue: 0.15
+  - optionName: Pattern Up
+    description: 
+    upgradeType: 4
+    intValue: 1
+    floatValue: 0.15
