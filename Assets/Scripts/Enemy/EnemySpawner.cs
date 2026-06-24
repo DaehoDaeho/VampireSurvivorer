@@ -6,6 +6,8 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private GameObject[] enemyPrefabs;
+
     [SerializeField] private Transform playerTransform;
     [SerializeField] private Transform enemyParent;
     
@@ -67,10 +69,12 @@ public class EnemySpawner : MonoBehaviour
 
     void SpawnOneEnemy()
     {
+        GameObject selectedEnemyPrefab = GetRandomEnemyPrefab();
+
         Vector2 randomDirection = Random.insideUnitCircle.normalized;
         Vector3 spawnPosition = playerTransform.position + (Vector3)(randomDirection * spawnDistance);
 
-        Instantiate(enemyPrefab, spawnPosition, Quaternion.identity, enemyParent);
+        Instantiate(selectedEnemyPrefab, spawnPosition, Quaternion.identity, enemyParent);
     }
 
     int GetCurrentWaveNumber()
@@ -78,6 +82,22 @@ public class EnemySpawner : MonoBehaviour
         int waveNumber = Mathf.FloorToInt(elapsedTime / spawnCountIncreaseInterval) + 1;
 
         return waveNumber;
+    }
+
+    GameObject GetRandomEnemyPrefab()
+    {
+        if(enemyPrefabs == null || enemyPrefabs.Length == 0)
+        {
+            return enemyPrefab;
+        }
+
+        // int일 경우 : 첫번째 인자가 그대로 최소 범위.
+        //             두번째 인자 - 1이 최대 범위.
+        // float일 경우 : 첫번째 인자가 그대로 최소 범위.
+        //               두번째 인자가 그대로 최대 범위.
+        int randomIndex = Random.Range(0, enemyPrefabs.Length);
+
+        return enemyPrefabs[randomIndex];
     }
 
     private void OnDrawGizmos()

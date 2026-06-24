@@ -2273,6 +2273,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 6390879288962699896, guid: 6e3f9290392c6ff40aa992f7dbff5721, type: 3}
+  enemyPrefabs:
+  - {fileID: 6390879288962699896, guid: 6e3f9290392c6ff40aa992f7dbff5721, type: 3}
+  - {fileID: 6390879288962699896, guid: ced8678186163c2449c810c5d65cf2af, type: 3}
+  - {fileID: 6390879288962699896, guid: 559c3e199ad191d4899418ca2bdc6f15, type: 3}
   playerTransform: {fileID: 355460146}
   enemyParent: {fileID: 1350649373}
   spawnDistance: 8
