@@ -1,12 +1,19 @@
 using UnityEngine;
 
+[System.Serializable]
+public class SpawnEnemyData
+{
+    public GameObject enemyPrefab;
+    public int weight;
+}
+
 /// <summary>
 /// 게임 진행 중 일정 시간마다 적 프리팹을 생성한다.
 /// </summary>
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private GameObject enemyPrefab;
-    [SerializeField] private GameObject[] enemyPrefabs;
+    [SerializeField] private SpawnEnemyData[] spawnEnemyDatas;
 
     [SerializeField] private Transform playerTransform;
     [SerializeField] private Transform enemyParent;
@@ -86,18 +93,40 @@ public class EnemySpawner : MonoBehaviour
 
     GameObject GetRandomEnemyPrefab()
     {
-        if(enemyPrefabs == null || enemyPrefabs.Length == 0)
+        if(spawnEnemyDatas == null || spawnEnemyDatas.Length == 0)
         {
             return enemyPrefab;
+        }
+
+        int totalWeights = 0;
+        for(int i=0; i<spawnEnemyDatas.Length; ++i)
+        {
+            totalWeights += spawnEnemyDatas[i].weight;
         }
 
         // int일 경우 : 첫번째 인자가 그대로 최소 범위.
         //             두번째 인자 - 1이 최대 범위.
         // float일 경우 : 첫번째 인자가 그대로 최소 범위.
         //               두번째 인자가 그대로 최대 범위.
-        int randomIndex = Random.Range(0, enemyPrefabs.Length);
+        int randomIndex = Random.Range(0, totalWeights);
 
-        return enemyPrefabs[randomIndex];
+        int currentProbability = 0;
+        for (int i = 0; i < spawnEnemyDatas.Length; ++i)
+        {
+            if(spawnEnemyDatas[i].weight <= 0)
+            {
+                continue;
+            }
+
+            currentProbability += spawnEnemyDatas[i].weight;
+
+            if(randomIndex < currentProbability)
+            {
+                return spawnEnemyDatas[i].enemyPrefab;
+            }
+        }
+
+        return enemyPrefab;
     }
 
     private void OnDrawGizmos()
