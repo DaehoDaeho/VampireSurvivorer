@@ -756,6 +756,8 @@ GameObject:
   - component: {fileID: 355460151}
   - component: {fileID: 355460152}
   - component: {fileID: 355460153}
+  - component: {fileID: 355460155}
+  - component: {fileID: 355460154}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -937,6 +939,32 @@ MonoBehaviour:
   experienceIncreasePerLevel: 3
   experienceToNextLevel: 0
   levelUpSelectionUI: {fileID: 2125611189}
+--- !u!114 &355460154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 355460145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aee6d49ccbb8af4593686cf2b7fcbdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMovement: {fileID: 355460149}
+  speedBonus: 2
+--- !u!114 &355460155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 355460145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b12cdc70325ebfc41a1fe27fb373d74d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &385720120
 GameObject:
   m_ObjectHideFlags: 0

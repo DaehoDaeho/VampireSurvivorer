@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -6367560908665664636, guid: d348dff3819df794186a80cb95777629, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.4386158, g: 0.37915978, b: 0.690566, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -98,7 +98,7 @@ Animator:
   m_GameObject: {fileID: 3175775733870426326}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5bb3a9cd94a603f45a9e8201d3686885, type: 2}
+  m_Controller: {fileID: 9100000, guid: 1a8d7f33a1e6f884d948c0cc59508b0c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -125,8 +125,9 @@ GameObject:
   - component: {fileID: 5050679506823440890}
   - component: {fileID: -8150547243834271870}
   - component: {fileID: 3770212897670193335}
+  - component: {fileID: 7384381309509588133}
   m_Layer: 6
-  m_Name: Enemy_Fast
+  m_Name: Enemy_Tank
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -225,7 +226,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTransform: {fileID: 0}
-  moveSpeed: 5
+  moveSpeed: 1.5
   stopDistance: 0.1
   enemyRigidbody: {fileID: 506281123939303285}
   spriteRenderer: {fileID: 8119472313751969671}
@@ -257,13 +258,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0870617b603bbf49bebbecc752615d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 2
+  maxHealth: 10
   destroyOnDeath: 1
   destroyDelay: 1
   bodyCollider: {fileID: 8495960820601861822}
   bodyRigidbody: {fileID: 506281123939303285}
   enemyMovement: {fileID: 7167256847588697517}
   experienceDropper: {fileID: 3770212897670193335}
+  enemyItemDropper: {fileID: 7384381309509588133}
 --- !u!114 &3770212897670193335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,3 +280,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   experienceGemPrefab: {fileID: 3428066239712682411, guid: 7f53c5b7c3ca2bf4ab5dd35da35911f6, type: 3}
   dropRadius: 0.25
+--- !u!114 &7384381309509588133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6390879288962699896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41b8bd4352daf1643a5a5714c0666e5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healItemPrefab: {fileID: 5626107169191442447, guid: b6f031f806d625d468e702cbf03294b5, type: 3}
+  magnetItemPrefab: {fileID: 5792648541184725388, guid: 37d9cd52102385b44b2c36e85f659cf2, type: 3}
+  speedBoostItemPrefab: {fileID: 3974280739815106053, guid: e5beac3afe7f74e4fbc173bf8584798b, type: 3}
+  dropChance: 0.35

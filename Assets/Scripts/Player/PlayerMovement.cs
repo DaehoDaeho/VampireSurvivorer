@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isMoving = false;
 
+    private float moveSpeedBonus = 0.0f;
+
     private void Awake()
     {
         if(playerRigidbody == null)
@@ -37,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        playerRigidbody.linearVelocity = moveDirection * moveSpeed;
+        playerRigidbody.linearVelocity = moveDirection * (moveSpeed + moveSpeedBonus);
     }
 
     public bool IsMoving()
@@ -48,5 +50,20 @@ public class PlayerMovement : MonoBehaviour
     public Vector2 GetMoveDirection()
     {
         return moveDirection;
+    }
+
+    public void AddMoveSpeedBonus(float bonus)
+    {
+        moveSpeedBonus += bonus;
+    }
+
+    public void RemoveMoveSpeedBonus(float bonus)
+    {
+        moveSpeedBonus -= bonus;
+
+        if(moveSpeedBonus < 0.0f)
+        {
+            moveSpeedBonus = 0.0f;
+        }
     }
 }
