@@ -131,5 +131,10 @@ public class PlayerHealth : MonoBehaviour
     {
         isDead = true;
         SetSpriteVisible(true);
+
+        if(GameStateManager.Instance != null)
+        {
+            GameStateManager.Instance.EnterGameOver();
+        }
     }
 }

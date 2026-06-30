@@ -23,6 +23,11 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameStateManager.Instance != null && GameStateManager.Instance.IsPlaying == false)
+        {
+            return;
+        }
+
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         float verticalInput = Input.GetAxisRaw("Vertical");
 
@@ -39,6 +44,11 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (GameStateManager.Instance != null && GameStateManager.Instance.IsPlaying == false)
+        {
+            return;
+        }
+
         playerRigidbody.linearVelocity = moveDirection * (moveSpeed + moveSpeedBonus);
     }
 

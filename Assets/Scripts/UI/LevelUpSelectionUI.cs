@@ -36,6 +36,11 @@ public class LevelUpSelectionUI : MonoBehaviour
             return;
         }
 
+        if(GameStateManager.Instance != null)
+        {
+            GameStateManager.Instance.EnterLevelUp();
+        }
+
         isOpen = true;
 
         rootPanel.SetActive(true);
@@ -101,6 +106,11 @@ public class LevelUpSelectionUI : MonoBehaviour
         weaponUpgradeController.ApplyUpgrade(selectedUpgrade);
 
         CloseSelection();
+
+        if(GameStateManager.Instance != null)
+        {
+            GameStateManager.Instance.ExitLevelUp();
+        }
     }
 
     private void Awake()

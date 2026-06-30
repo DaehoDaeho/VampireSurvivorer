@@ -38,6 +38,11 @@ public class EnemySpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(GameStateManager.Instance != null && GameStateManager.Instance.IsPlaying == false)
+        {
+            return;
+        }
+
         elapsedTime += Time.deltaTime;
 
         UpdateDifficultyByTime();
