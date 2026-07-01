@@ -12,7 +12,6 @@ public class Projectile : MonoBehaviour
     [SerializeField] private int damage = 1;
 
     [SerializeField] private LayerMask targetLayerMask;
-    [SerializeField] private bool destroyOnHit = true;
 
     private Vector2 moveDirection = Vector2.right;
     private float lifeTimer = 0.0f;
@@ -21,6 +20,8 @@ public class Projectile : MonoBehaviour
 
     private float currentMoveSpeed = 0.0f;
 
+    private int remainingHitCount;
+
     public void Initialize(Vector2 direction)
     {
         moveDirection = direction.normalized;
@@ -28,6 +29,20 @@ public class Projectile : MonoBehaviour
         lifeTimer = 0.0f;
 
         isInitialized = true;
+
+        RotateToMoveDirection();
+    }
+
+    public void SetUp(Vector2 startDirection, int startDamage, float startSpeed, int hitCount)
+    {
+        moveDirection = startDirection.normalized;
+        damage = startDamage;
+        moveSpeed = startSpeed;
+        remainingHitCount = hitCount;
+        lifeTimer = 0.0f;
+        isInitialized = true;
+
+        SetSpeedMultiplier(1.0f);
 
         RotateToMoveDirection();
     }
@@ -77,14 +92,11 @@ public class Projectile : MonoBehaviour
         if(enemyHealth != null)
         {
             enemyHealth.TakeDamage(damage);
+            --remainingHitCount;
 
-            if(destroyOnHit == true)
+            if(remainingHitCount <= 0)
             {
                 Destroy(gameObject);
-            }
-            else
-            {
-                gameObject.SetActive(false);
             }
         }
     }

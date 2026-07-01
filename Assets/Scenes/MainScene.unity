@@ -972,6 +972,9 @@ GameObject:
   - component: {fileID: 355460153}
   - component: {fileID: 355460155}
   - component: {fileID: 355460154}
+  - component: {fileID: 355460156}
+  - component: {fileID: 355460157}
+  - component: {fileID: 355460158}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -1114,7 +1117,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 355460145}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a124188dcdbf3d4196cbcfc5a222adf, type: 3}
   m_Name: 
@@ -1179,6 +1182,62 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b12cdc70325ebfc41a1fe27fb373d74d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &355460156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 355460145}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f08d3ffc30761b3449b4b7c3fe336d4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 5662951042879398833, guid: 47771a2b6075fb540b60be466a4e90d4, type: 3}
+  firePoint: {fileID: 1577510342}
+  cooldown: 1
+  damage: 1
+  projectileSpeed: 8
+  projectileHitCount: 1
+--- !u!114 &355460157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 355460145}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa5abbd7ef0fc644e840d7eaba959a04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 5662951042879398833, guid: 47771a2b6075fb540b60be466a4e90d4, type: 3}
+  firePoint: {fileID: 1577510342}
+  cooldown: 1
+  damage: 1
+  projectileSpeed: 8
+  projectileHitCount: 5
+--- !u!114 &355460158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 355460145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 746eb5c79a5570e4d9d1096553ddc2fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 5662951042879398833, guid: 47771a2b6075fb540b60be466a4e90d4, type: 3}
+  firePoint: {fileID: 1577510342}
+  cooldown: 1
+  damage: 1
+  projectileSpeed: 8
+  projectileHitCount: 1
+  projectileCount: 5
+  spreadAngle: 45
 --- !u!1 &385720120
 GameObject:
   m_ObjectHideFlags: 0
